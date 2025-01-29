@@ -1,7 +1,14 @@
-function App() {
+import { Header } from './components/Header'
+import { Post } from './Posts'
+
+import './styles.css';
+
+export function App() {
   return (
-    <h1>Hello World!</h1>
+    <div>
+      <Header />
+      <Post />
+    </div>
   )
 }
 
-export default App
