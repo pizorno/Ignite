@@ -7,7 +7,7 @@ export function Post() {
                 <div className={styles.author}>
                     <img className={styles.avatar} src='https://github.com/diego3g.png' />
                     <div className={styles.authorInfo}>
-                        <strong>Diego Fernander</strong>
+                        <strong>Diego Fernandes</strong>
                         <span>Web Developer</span>
                     </div>
                 </div>
@@ -19,6 +19,15 @@ export function Post() {
                 <p><a href="#">pizorno.design/doctorcare</a></p>
                 <p><a href="#">#novoprojeto</a> <a href="#">#nlw</a> <a href="#">#rocketseat</a></p>
             </div>
+            <form className={styles.commentForm}>
+                <strong>Deixe seu feedback</strong>
+                <textarea 
+                    placeholder='Deixe um comentário'
+                />
+                <footer>
+                    <button type='submit'>Publicar</button>
+                </footer>
+            </form>
         </article>
     )
 }
