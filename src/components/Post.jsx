@@ -1,25 +1,35 @@
 import { Avatar } from './Avatar'
 import { Comment } from './Comment'
+import { format, formatDistanceToNow } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 import styles from './Post.module.css'
 
-export function Post() {
+export function Post({ author, content, publishedAt }) {
+    const publishedDateFormatted = format(publishedAt, "dd 'de' LLLL 'às' HH:mm'h'", { locale: ptBR })          
+    const publishedAtDistance = formatDistanceToNow(publishedAt, { locale: ptBR, addSuffix: true })
     return (
         <article className={styles.post}>
             <header>
                 <div className={styles.author}>
-                    <Avatar src='https://github.com/diego3g.png' />
+                    <Avatar src={author.avatarUrl} />
                     <div className={styles.authorInfo}>
-                        <strong>Diego Fernandes</strong>
-                        <span>Web Developer</span>
+                        <strong>{author.name}</strong>
+                        <span>{author.role}</span>
                     </div>
                 </div>
-                <time title='30 de Janeiro às 07:44' datetime="2025-01-30 07:44:00">Publicado há 01h</time>
+                <time title={publishedDateFormatted} datetime={publishedAt.toISOString()}>{publishedAtDistance}</time>
             </header>
             <div className={styles.content}>
-                <p>Fala galera </p>
-                <p>Acabei de subir mai um projeto no meu portifólio. É um projeto que fiz no NLW Return, evento da Rocketseat.</p>
-                <p><a href="#">pizorno.design/doctorcare</a></p>
-                <p><a href="#">#novoprojeto</a> <a href="#">#nlw</a> <a href="#">#rocketseat</a></p>
+                {content.map((item, index) => {
+                    if (item.type === 'paragraph') {
+                        return <p key={index}>{item.content}</p>
+                    }
+                    if (item.type === 'link') {
+                        return <a key={index} href={item.content} target='_blank' rel='noreferrer'>{item.content}</a>
+                    }
+                    return null
+                }
+                )}
             </div>
             <form className={styles.commentForm}>
                 <strong>Deixe seu feedback</strong>
